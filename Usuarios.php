@@ -26,8 +26,23 @@ class Usuarios extends Crud {
     public function insert(){
        $sql = "INSERT INTO $this->table (nome,email) VALUES (:nome, :email)";
        $stmt = DB::prepare($sql);
-       $stmt->bindParam(":nome", $nome);
-       $stmt->bindParam(":email", $email);
+       $stmt->bindParam(":nome", $this->nome);
+       $stmt->bindParam(":email", $this->email);
         return $stmt->execute();
+    }
+
+    public function update($id){
+        $sql = "UPDATE $this->table SET nome = :nome, email= :email, WHERE id = :id";
+        $stmt = DB::prepare($sql);
+        $stmt->bindParam(":nome", $this->nome);
+        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":id", $this->id);
+        return $stmt->execute();
+    }
+
+    public function delete($id){
+        $sql= "Delete from $this->table WHERE id = :id";
+        $stmt = DB::prepare($sql);
+        $stmt->execute();
     }
 }
